@@ -1,1 +1,2 @@
 # Django
+- Practice Projects - Django

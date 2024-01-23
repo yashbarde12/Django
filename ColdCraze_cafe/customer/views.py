@@ -25,16 +25,19 @@ def delete_customer(request, customerid):
     return redirect("/customer/view/")
 
 def update_customer(request, customerid):
-    data = models.Customer.objects.get(id=customerid)
-    all_customers = {'customers': data}
+    customer= models.Customer.objects.get(id=customerid)
+    data = {'customer': customer}
     if (request.method == 'POST'):
-        print("hello")
         form_data = forms.CustomerForm(request.POST, instance=customer)
         print(form_data)
         if (form_data.is_valid()):
             form_data.save(commit=True)
             return redirect("/customer/view/")
-    return render(request, 'customer/update_customer.html', context= all_customers)
+        else:
+            print("Not Valid")
+            print(form_data.errors)
+            return redirect("/customer/view/")
+    return render(request, 'customer/update_customer.html', context= data)
 
 
 

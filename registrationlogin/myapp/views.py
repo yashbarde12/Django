@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth.models import User
-from django.contrib.auth import authenticate
+from django.contrib.auth import authenticate, login, logout
 # Create your views here.
 
 def register_user(request):
@@ -40,6 +40,7 @@ def login_user(request):
         else:
             user=authenticate(username=uname,password=upass)
             if user is not None:
+                login(request, user)
                 return redirect('/myapp/home')
             else:
                 data['error_msg']='Wrong Password'
@@ -47,4 +48,19 @@ def login_user(request):
     return render(request,'myapp/login.html')
 
 def home(request):
-   return render(request,'myapp/home.html')
+    data = {}
+    user_authenticated = request.user.is_authenticated
+    print(user_authenticated)
+    if(user_authenticated):
+        user_id = request.user.id
+        user = User.objects.get(id=user_id)
+
+        data['user_data'] = user.username
+        return render(request, 'myapp/home.html', context=data)
+    else:
+        data['user_data'] = 'User'
+
+def user_logout(request):
+    logout(request)
+    return render(request, 'myapp/home.html', {"user_data": "user"})
+    

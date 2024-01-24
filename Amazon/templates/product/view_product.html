@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    {% if product_list %}
+    <h1>Products</h1>
+    <table align="center" cellspacing="0" callpadding="500" border="1">
+        <thead>
+            <tr>
+                <td>ID</td>
+                <td>NAME</td>
+                <td>PRICE</td>
+            </tr>
+        </thead>
+        <tbody>
+            {% for product in product_list %}
+            <tr>
+                <td>{{product.id}}</td>
+                <td>{{product.name}}</td>
+                <td>{{product.price}}</td>
+            </tr>
+            
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <h1>No Products found</h1>
+    {% endif %}
+</body>
+</html>

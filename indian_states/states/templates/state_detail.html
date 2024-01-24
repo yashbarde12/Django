@@ -1,0 +1,11 @@
+
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>{{ object.name }} Details</h2>
+  <p>Population: {{ object.population }}</p>
+  <p>Language: {{ object.language }}</p>
+  <p>Capital: {{ object.capital }}</p>
+  <a href="{% url 'state_update' object.pk %}">Update</a> |
+  <a href="{% url 'state_delete' object.pk %}">Delete</a>
+{% endblock %}

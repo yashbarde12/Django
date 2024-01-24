@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Indian States{% endblock %}</title>
+    
+</head>
+<body>
+    <header>
+        <h1>{% block header %}Indian States Information{% endblock %}</h1>
+        <nav>
+            <ul>
+                <li><a href="{% url 'state_list' %}">State List</a></li>
+                <li><a href="{% url 'state_create' %}">Add State</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer>
+        
+    </footer>
+</body>
+</html>

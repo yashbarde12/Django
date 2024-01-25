@@ -1,0 +1,30 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Employee Search Results</title>
+</head>
+<body>
+    <h2>Employee Search Results</h2> 
+    <p><b>Search criteria:</b>  {{ lookup_field }} > {{ lookup_type }} > {{ search_term }}</p>
+    
+    <table border="1" cellspacing="5" cellpadding="5">
+        <tr>
+            <th>Employee ID</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Age</th>
+            <th>Address</th>
+        </tr>
+        {% for employee in results %}
+            <tr>
+                <td>{{ employee.empid }}</td>
+                <td>{{ employee.fname }}</td>
+                <td>{{ employee.lname }}</td>
+                <td>{{ employee.age }}</td>
+                <td>{{ employee.address }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

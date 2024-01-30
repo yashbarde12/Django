@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Media</title>
+</head>
+<body>
+
+<h2>Audio Files</h2>
+<ul>
+    {% for audio_file in audio_files %}
+        <li>{{ audio_file.name }}</li>
+    {% endfor %}
+</ul>
+
+<h2>Video Files</h2>
+<ul>
+    {% for video_file in video_files %}
+        <li>{{ video_file.name }}</li>
+    {% endfor %}
+</ul>
+
+<h2>Image Files</h2>
+<ul>
+    {% for image_file in image_files %}
+        <li>{{ image_file.name }}</li>
+    {% endfor %}
+</ul>
+
+</body>
+</html>

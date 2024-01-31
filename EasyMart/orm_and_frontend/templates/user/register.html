@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration page</title>
+</head>
+<body>
+    <table align="center" border="1" cellspacing="3" callpadding="50">
+        <form method="POST">
+            {% csrf_token %}
+            <thead>
+                <tr>
+                    <th colspan="2">
+                    Registration form
+                    {% if error_msg %}
+                    <p style="color: red; font-weight: lighter;">{{error_msg}}</p>
+                    {% endif %}
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><label for="username">Username</label></td>
+                    <td><input type="text" id="username" name="username" value=""></td>
+                </tr>
+                <tr>
+                    <td><label for="password">Password</label></td>
+                    <td><input type="password" id="password" name="password" value=""></td>
+                </tr>
+                <tr>
+                    <td><label for="password2">Confirm Password</label></td>
+                    <td><input type="password" id="password2" name="password2" value=""></td>
+                </tr>
+                <tr>
+                    <td><input type="reset"></td>
+                    <td><input type="submit"></td>
+                </tr>
+                <tr>
+                    <td colspan="2"> <p align="center"> Already registered? click on <a href="/user/login">Login User</a> to login.</p></td>
+                </tr>
+            </tbody>
+        </form>
+    </table>
+</body>
+</html>

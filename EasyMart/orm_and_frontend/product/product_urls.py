@@ -1,0 +1,16 @@
+from django.urls import path
+from product import views
+
+
+
+urlpatterns = [
+    path('index/', views.index),
+    path('filter/<category_value>', views.filter_by_category),
+    path('sort/<sort_value>', views.sort_by_price),
+    path('rating/<rating_value>', views.filter_by_rating),
+    path('price', views.filter_by_price_range),
+    path('details/<pid>', views.product_detail),
+    path('add_to_cart/<pid>', views.add_to_cart),
+    path('view_cart/<uid>', views.view_cart),
+]
+

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ColdCraze cafe</title>
+</head>
+<body>
+    <h1>Welcome to ColdCraze cafe!</h1>
+    
+    <a href="/cafe/home"><button>Home</button></a>
+    {% if user.is_authenticated %}
+    <a href="/customer/view"><button>Customer Details</button></a>
+    <a href="/order/view"><button>Customer Orders</button></a>
+    <a href="/employee/login"><button>Logout</button></a>
+    {% else %} 
+    <a href="/employee/login"><button>Employee Login</button></a>
+    <a href="/employee/register"><button>Register new Employee</button></a>
+    {% endif %}
+
+</body>
+</html>

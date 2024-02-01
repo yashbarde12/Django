@@ -3,6 +3,7 @@ from customer import models
 from customer import forms
 import customer
 # Create your views here.
+#==================== customer app ====================
 def view_customer(request):
     data = models.Customer.objects.all()
     all_customers = {'customers': data}
@@ -38,6 +39,7 @@ def update_customer(request, customerid):
             print(form_data.errors)
             return redirect("/customer/view/")
     return render(request, 'customer/update_customer.html', context= data)
+
 
 
 

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update order</title>
+</head>
+<body>
+    <form method="POST">
+        {% csrf_token %}
+        <label for="id_snacks">Snacks: </label>
+        <select id="dropdown" name="snacks">
+            <option value="burger">Burger</option>
+            <option value="pizza">Pizza</option>
+            <option value="french fries">French fries</option>
+            <option value="sandwich">Sandwich</option>
+        </select>
+        <br><br>
+        <label for="id_snack_quantity">Quantity: </label>
+        <input type="number" name="snack_quantity" id="id_snack_quantity" value="{{order.snack_quantity}}">
+        <br><br>
+        <label for="id_drinks">Drinks: </label>
+        <select id="dropdown" name="drinks">
+            <option value="chocolate_milkshake">Chocolate Milkshake</option>
+            <option value="mango_milkshake">Mango Milkshake</option>
+            <option value="coffee">Coffee</option>
+            <option value="sprite">Sprite</option>
+            <option value="latte">Latte</option>
+        </select>
+        <br> <br>
+        <label for="id_drink_quantity">Quantity: </label>
+        <input type="number" name="drink_quantity" id="id_drink_quantity" value="{{order.drink_quantity}}">
+        <br> <br>
+        <label for="id_deserts">Deserts: </label>
+        <select id="dropdown" name="deserts">
+            <option value="hot_chocolate">Hot Chocolate</option>
+            <option value="belgian_waffle">Belgian Waffle</option>
+            <option value="donuts">Donuts</option>
+            <option value="cake">Cake</option>
+            <option value="icecream">Icecream</option>
+        </select>
+        <br> <br>
+        <label for="id_desert_quantity">Quantity: </label>
+        <input type="number" name="desert_quantity" id="id_desert_quantity" value="{{order.desert_quantity}}">
+        <br> <br>
+        <input type="submit" value="update">
+    </form>
+</body>
+</html>

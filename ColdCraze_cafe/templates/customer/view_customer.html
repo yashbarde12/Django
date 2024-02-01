@@ -7,8 +7,8 @@
     <title>All Customers</title>
 </head>
 <body>
-    <h1>Following customers registered successfully.</h1>
-    <a href="/customer/register"><button>Register New Customer</button></a>
+    <h1>Customer Details</h1>
+    <a href="/customer/register"><button>Add New Customer</button></a>
     {% if customers %}
     <table align="center" border="1" cellspacing="0" cellpadding="10">
         <thead>
@@ -39,5 +39,6 @@
     {% else %}
     <p>No customers found.</p>
     {% endif %}
+    <a href="/cafe/home"><button>Back</button></a>
 </body>
 </html>

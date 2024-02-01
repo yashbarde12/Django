@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orders</title>
+</head>
+<body>
+    <h1>Orders Details</h1>
+    <a href="/order/add"><button>Add orders</button></a>
+    {% if orders %}
+    <table align="center" border="1" cellspacing="0" cellpadding="10">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>SNACKS</th>
+                <th>Quantity</th>
+                <th>DRINKS</th>
+                <th>Quantity</th>
+                <th>DESERTS</th>
+                <th>Quantity</th>
+                <th colspan="2">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for order in orders %}
+            <tr>
+                <td>{{order.id}}</td>
+                <td>{{order.snacks}}</td>
+                <td>{{order.snack_quantity}}</td>
+                <td>{{order.drinks}}</td>
+                <td>{{order.drink_quantity}}</td>
+                <td>{{order.deserts}}</td>
+                <td>{{order.desert_quantity}}</td>
+                <td>
+                    <a href="/order/update/{{order.id}}"><button>Update</button></a>
+                    <a href="/order/delete/{{order.id}}"><button>Delete</button></a>
+                </td>
+            </tr>
+
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p>No orders found.</p>
+    {% endif %}
+    <a href="/cafe/home"><button>Back</button></a>
+</body>
+</html>

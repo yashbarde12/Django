@@ -14,8 +14,13 @@ delete from django_session;
 show tables;
 describe customer_customer;
 select * from customer_customer;
+
+truncate table customer_customer;
 -- ---------------------------------------------
 -- _________________ order _____________________
 show tables;
 describe order_order;
 select * from order_order;
+
+truncate table order_order;
+-- ---------------------------------------------

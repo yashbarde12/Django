@@ -13,7 +13,7 @@ def add_order(request):
     if (request.method == 'GET'):
         order_form = forms.OrderForm()
         form = {'form': order_form}
-        return render(request, 'order/add_customer.html', context= form)
+        return render(request, 'order/add_order.html', context= form)
     else:
         form_data = forms.OrderForm(request.POST)
         if (form_data.is_valid()):

@@ -11,6 +11,7 @@ urlpatterns = [
     path('price', views.filter_by_price_range),
     path('details/<pid>', views.product_detail),
     path('add_to_cart/<pid>', views.add_to_cart),
-    path('view_cart/<uid>', views.view_cart),
+    path('view_cart/', views.view_cart),
+    path('remove_item/<cartid>', views.remove_item),
 ]
 

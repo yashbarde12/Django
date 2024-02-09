@@ -13,6 +13,11 @@ def index(request):
    #ProductTable.objects.all() this will fetch non active product also. so it is better to use filter
    fetched_products=ProductTable.objects.filter(is_active=True)
    data['products']=fetched_products
+
+   user_id= request.user.id
+   id_specific_cartitems= CartTable.objects.filter(uid= user_id)
+   count = id_specific_cartitems.count
+   data['cart_count']= count
    return render(request,'product/index.html',context=data)
 
 def filter_by_category(request,category_value):
@@ -124,11 +129,27 @@ def add_to_cart(request, pid):
         product = ProductTable.objects.get(id=pid)
         cart = CartTable.objects.create(pid=product, uid=user)
         cart.save()
-        return HttpResponse("Product added to cart")
+        return redirect('/product/index')
     else:
         return redirect("/user/login")
 
 def view_cart(request):
-    cart_items = CartTable.objects.filter(user=request.user.id)
-    context = {'cart_items': cart_items}
-    return render(request, 'product/view_cart.html', context)
+    data = {}
+    user_id = request.user.id
+    user = User.objects.get(id = user_id)
+    id_specific_cartitems = CartTable.objects.filter(uid=user_id)
+    data['products']= id_specific_cartitems
+    data['user']= user
+    count= id_specific_cartitems.count()
+    data['cart_count']=count
+    total_price = 0
+    for item in id_specific_cartitems:
+        total_price += item.pid.price
+    data['total_price']= total_price
+    return render(request, 'product/view_cart.html', context= data)
+
+def remove_item(request, cartid):
+    cart = CartTable.objects.filter(id = cartid)
+    cart.delete()
+    return redirect("/product/view_cart")
+

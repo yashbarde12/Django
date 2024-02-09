@@ -36,7 +36,7 @@
                   <li> <a href="/product/index">Home</a> </li>
                   <li> <a href="/product/index">Products</a> </li>
                   {% if user.is_authenticated %}
-                  <li>  <a href="product/view_cart">view cart</a>  </li>
+                  <li>  <a href="/product/view_cart">view cart <span style="background-color: white;"></span> {{cart_count}}</a>  </li>
                   <li>  <a href="/user/logout">logout</a>  </li>
                   {% else %}   
                   <li>  <a href="/user/login">login</a>  </li>

@@ -17,3 +17,4 @@ class ProductTable(models.Model):
 class CartTable(models.Model):
    uid = models.ForeignKey(User, on_delete= models.CASCADE, db_column="uid")
    pid = models.ForeignKey(ProductTable, on_delete= models.CASCADE,db_column="pid")
+   quantity = models.IntegerField(default=1)

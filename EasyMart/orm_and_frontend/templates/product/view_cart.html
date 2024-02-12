@@ -23,9 +23,9 @@
                   <p>{{product.pid.details}}</p>
                   <p><span>&#8377;</span> {{product.pid.price}}</p>
                   <p>{{product.pid.rating}}</p>
-                  <a class="btn btn-danger">-</a>
+                  <a class="btn btn-danger" href="/product/update_quantity/0/{{product.id}}">-</a>
                   <input class="text-center" type="number" value="{{product.quantity}}" disabled  >
-                  <a class="btn btn-success">+</a>
+                  <a class="btn btn-success" href="/product/update_quantity/1/{{product.id}}" >+</a>
                   <a class="btn btn-danger" href="/product/remove_item/{{product.id}}">Delete</a>
                </div>
                <hr class="mt-3">

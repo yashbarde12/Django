@@ -1,3 +1,5 @@
+from unicodedata import category
+from zoneinfo import available_timezones
 from django.shortcuts import render
 from django.http import HttpResponse
 from product.models import CartTable, ProductTable
@@ -6,6 +8,7 @@ from django.db.models import Q
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth.models import User
+from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 # Create your views here.
 def index(request):
@@ -127,11 +130,23 @@ def add_to_cart(request, pid):
         print("product id = ", pid)
         user = User.objects.get(id=uid)
         product = ProductTable.objects.get(id=pid)
-        cart = CartTable.objects.create(pid=product, uid=user)
-        cart.save()
-        return redirect('/product/index')
+        q1 = Q(uid= uid)
+        q2 = Q(pid= pid)
+        available_products = CartTable.objects.filter(q1 & q2)
+        print()
+        if(available_products.count()>0):
+            messages.error(request, 'product is already added to cart')
+            return redirect('/product/index')
+        else:
+            cart= CartTable.objects.create(pid=product, uid=user)
+            cart.save()
+            messages.success(request, 'product is added to cart')
+            return redirect('/product/index')
     else:
         return redirect("/user/login")
+
+    
+
 
 def view_cart(request):
     data = {}
@@ -141,11 +156,16 @@ def view_cart(request):
     data['products']= id_specific_cartitems
     data['user']= user
     count= id_specific_cartitems.count()
-    data['cart_count']=count
+    # data['cart_count']=count
     total_price = 0
+    total_quantity = 0
     for item in id_specific_cartitems:
-        total_price += item.pid.price
+        #print(item.pid.price)
+        #total_price += item.pid.price
+        total_price=(total_price+ item.pid.price)*(item.quantity)
+        total_quantity += item.quantity
     data['total_price']= total_price
+    data['cart_count']= total_quantity
     return render(request, 'product/view_cart.html', context= data)
 
 def remove_item(request, cartid):
@@ -153,3 +173,15 @@ def remove_item(request, cartid):
     cart.delete()
     return redirect("/product/view_cart")
 
+def update_quantity(request, flag, cartid):
+    #print(type(flag))
+    cart = CartTable.objects.filter(id=cartid)
+    actual_quantity = cart[0].quantity
+    if (flag == '1'):
+        cart.update(quantity = actual_quantity+1)
+        pass
+    else:
+        if (actual_quantity > 1):
+            cart.update(quantity = actual_quantity-1)
+        pass
+    return redirect('/product/view_cart')

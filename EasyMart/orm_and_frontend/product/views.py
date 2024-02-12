@@ -185,3 +185,18 @@ def update_quantity(request, flag, cartid):
             cart.update(quantity = actual_quantity-1)
         pass
     return redirect('/product/view_cart')
+
+import calendar
+import time
+from product.models import OrderTable
+def place_order(request):
+    current_GMT = time.gmtime()
+    time_stamp = calendar.timegm(current_GMT)
+    user_id = request.user.id
+    oid = str(user_id)+"-"+str(time_stamp)
+    cart = CartTable.objects.filter(uid=user_id)
+    for data in cart:
+        order = OrderTable.objects.create(order_id= oid, quantity= data.quantity, pid= data.pid, uid= data.uid )
+        order.save()
+
+    return HttpResponse ('order placed')

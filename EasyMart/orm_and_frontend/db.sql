@@ -11,6 +11,11 @@ select * from product_carttable;
 truncate table product_carttable;
 delete from product_carttable;
 
+describe product_customerdetails;
+select * from product_customerdetails;
+truncate table product_customerdetails;
+delete from product_customerdetails;
+
 describe product_ordertable;
 select * from product_ordertable;
 truncate table product_ordertable;

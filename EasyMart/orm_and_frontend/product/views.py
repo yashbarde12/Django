@@ -190,13 +190,19 @@ import calendar
 import time
 from product.models import OrderTable
 def place_order(request):
-    current_GMT = time.gmtime()
-    time_stamp = calendar.timegm(current_GMT)
+    data = {}
     user_id = request.user.id
-    oid = str(user_id)+"-"+str(time_stamp)
-    cart = CartTable.objects.filter(uid=user_id)
-    for data in cart:
-        order = OrderTable.objects.create(order_id= oid, quantity= data.quantity, pid= data.pid, uid= data.uid )
-        order.save()
-
-    return HttpResponse ('order placed')
+    user = User.objects.get(id = user_id)
+    id_specific_cartitems = CartTable.objects.filter(uid=user_id)
+    data['products']= id_specific_cartitems
+    data['user']= user
+    total_price = 0
+    total_quantity = 0
+    for item in id_specific_cartitems:
+        #print(item.pid.price)
+        #total_price += item.pid.price
+        total_price=(total_price+ item.pid.price)*(item.quantity)
+        total_quantity += item.quantity
+    data['total_price']= total_price
+    data['cart_count']= total_quantity
+    return render(request, 'product/order.html', context= data)

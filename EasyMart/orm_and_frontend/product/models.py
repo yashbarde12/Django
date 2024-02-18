@@ -34,4 +34,6 @@ class CustomerDetails(models.Model):
    email = models.EmailField(max_length=50)
    address_type = models.CharField(max_length=10, choices=ADDRESS_TYPE)
    full_address = models.CharField(max_length=10)
+   pincode = models.CharField(max_length=10)
+
    

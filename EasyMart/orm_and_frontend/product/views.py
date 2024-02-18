@@ -1,3 +1,4 @@
+from http import client
 from unicodedata import category
 from zoneinfo import available_timezones
 from django.shortcuts import render
@@ -74,27 +75,31 @@ def product_detail(request, pid):
 
 #----------------------user registration and login---------------------------
 def register_user(request):
-    data = {}
-    if request.method == "POST":
-        uname = request.POST['username']
-        upass = request.POST['password']
-        ucon_pass = request.POST['password2']
-        if(uname == '' or upass == '' or ucon_pass == ''):
-            data['error_msg']='Field cannot be empty'
-            return render(request, 'user/register.html', context=data)
-        elif (upass != ucon_pass):
-            data['error_msg']='Password and confirm password does not match'
-            return render(request, 'user/register.html', context=data)
-        elif (User.objects.filter(username=uname)).exists():
-            data['error_msg']=uname+' already exist'
-            return render(request, 'user/register.html', context=data)
-        else:
-            user = User.objects.create(username=uname)
-            user.set_password(upass)
-            user.save()
-            # return HttpResponse('Registration done')
-            return redirect('/user/login')
-    return render(request, 'user/register.html')
+   data={}
+   if request.method=="POST":
+      uname=request.POST['username']
+      upass=request.POST['password']
+      uconf_pass=request.POST['password2']
+      #implementing validation
+      if (uname=='' or upass =='' or uconf_pass ==''):
+         data['error_msg']='Fileds cant be empty'
+         return render(request,'user/register.html',context=data)
+      elif(upass!=uconf_pass):
+         data['error_msg']='Password and confirm password does not matched'
+         return render(request,'user/register.html',context=data)
+      elif(User.objects.filter(username=uname).exists()):
+         data['error_msg']=uname + ' alredy exist'
+         return render(request,'user/register.html',context=data)
+      else:
+         user=User.objects.create(username=uname)
+         #here username and password aee column names present inside auth_user table
+         user.set_password(upass) #encrypting passowrd
+         user.save() #saving data into table
+         customer=CustomerDetails.objects.create(uid=user)
+         customer.save()
+         # return HttpResponse("Registraion done") 
+         return redirect('/user/login')
+   return render(request,'user/register.html')
 
 def login_user(request):
     data = {}
@@ -194,6 +199,8 @@ def place_order(request):
     user_id = request.user.id
     user = User.objects.get(id = user_id)
     id_specific_cartitems = CartTable.objects.filter(uid=user_id)
+    customer = CustomerDetails.objects.get(uid= user_id)
+    data['customer'] = customer
     data['products']= id_specific_cartitems
     data['user']= user
     total_price = 0
@@ -206,3 +213,39 @@ def place_order(request):
     data['total_price']= total_price
     data['cart_count']= total_quantity
     return render(request, 'product/order.html', context= data)
+
+from product.models import CustomerDetails
+def edit_profile(request):
+   data={}
+   user_id=request.user.id
+   customer_querySet=CustomerDetails.objects.filter(uid=user_id)
+   customer = customer_querySet[0]
+   data['customer']=customer
+   if request.method=="POST":
+      first_name=request.POST['first_name']
+      last_name=request.POST['last_name']
+      phone=request.POST['phone']
+      email=request.POST['email']
+      address_type=request.POST['address_type']
+      full_address=request.POST['full_address']
+      pincode=request.POST['pincode']
+      print(first_name,last_name,phone,email,address_type,full_address,pincode)
+      customer_querySet.update(first_name=first_name,last_name=last_name,phone=phone,email=email,address_type=address_type,full_address=full_address,pincode=pincode)
+      return redirect('/product/index')
+   return render(request,'user/edit_profile.html',context=data)
+
+import razorpay   
+def make_payment(request):
+   #getting total amount
+   user_id=request.user.id
+   id_specific_cartitems=CartTable.objects.filter(uid=user_id)
+   total_price = 0
+   for item in id_specific_cartitems:
+      total_price=(total_price+item.pid.price)*(item.quantity) 
+      
+   client = razorpay.Client(auth=("rzp_test_ls3ufyYec3WWtv", "Cm3iRE0s8JpvOE5hTg9dS8tP"))
+   data = { "amount": total_price*100, "currency": "INR", "receipt": "order_rcptid_11" }
+   payment = client.order.create(data=data)
+   print(payment)
+   #return HttpResponse("Payment Done")
+   return render(request,'product/pay.html',context=data)

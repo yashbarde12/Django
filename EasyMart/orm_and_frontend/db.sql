@@ -6,6 +6,11 @@ describe product_producttable;
 select * from product_producttable;
 delete from product_producttable;
 
+describe auth_user;
+select * from auth_user;
+truncate table auth_user;
+delete from auth_user;
+
 describe product_carttable;
 select * from product_carttable;
 truncate table product_carttable;

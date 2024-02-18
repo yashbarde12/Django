@@ -39,8 +39,12 @@
            <div class="col-3 border">
                 <h3>Total Items: {{cart_count}}</h3>
                 <h3>Total Price: <span>&#8377;</span> {{total_price}}</h3>
-                <a class="btn btn-warning w-100" href="/product/place_order">Make Payment</a>
+                <a class="btn btn-warning w-100" href="/product/make_payment">Make Payment</a>
                 <br> <br>
+                <h4>Delievery address</h4>
+                <p>{{customer.full_address}}</p>
+                <p>pincode : {{customer.pincode}}</p>
+                <br><br>
                 <a class="btn btn-primary w-100" href="/product/view_cart">View cart</a>
             </div>
        </div>

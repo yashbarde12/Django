@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu - CraveBites</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <!-- Custom CSS -->
+    <style>
+        body {
+            padding-top: 56px; /* Adjusted for the fixed navbar height */
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        .container-fluid {
+            margin-top: 70px; /* Adjusted for the fixed navbar height */
+        }
+
+        .card {
+            margin-bottom: 20px;
+        }
+
+        .card-body {
+        box-shadow: 0 50px 100px rgba(0, 0, 0, 0.1); /* Add box shadow to the card body */
+        padding: 20px; /* Adjust padding for a better appearance */
+        }
+
+        .footer {
+            background-color: #343a40; /* Dark background color for the footer */
+            color: #ffffff; /* Light text color for the footer */
+            padding: 2rem 0;
+            margin-top: 2rem;
+        }
+
+        .footer a {
+            color: #ffffff; /* Light text color for footer links */
+            margin-right: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">
+            <img src="Logo_rectangle.png" alt="CraveBites Logo" height="50">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">HOME <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#about">ABOUT</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/product/index">MENU</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/product/index">CART</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/product/index">PROFILE</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/product/index">SIGN UP</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/product/index">LOGIN</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/product/index">LOGOUT</a>
+                    </li>
+
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Content Area -->
+    <div class="container-fluid">
+        <div class="container">
+            <!-- Filters Section -->
+            <div class="row mb-3">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="categoryFilter">Search:</label>
+                        <form class="form-inline my-2 my-lg-0">
+                            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
+                                <i class="fas fa-search"></i> <!-- Font Awesome search icon -->
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="categoryFilter">Category:</label>
+                        <select class="form-control" id="categoryFilter">
+                            <option value="all">All Categories</option>
+                            <option value="snacks">Snacks</option>
+                            <option value="beverages">Beverages</option>
+                            <option value="sweets">Sweets</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="priceFilter">Price Range:</label>
+                        <select class="form-control" id="priceFilter">
+                            <option value="all">All Prices</option>
+                            <option value="0-10">0 Rs - 200 Rs</option>
+                            <option value="10-20">200 Rs - 300 Rs</option>
+                            <option value="20-30">300 Rs - 500 Rs</option>
+                            <option value="20-30">Above 500 Rs</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product Cards Section -->
+            <div class="row">
+                <!-- Product Card -->
+                <div class="col-md-4">
+                    <div class="card">
+                        <img src="01_burger.jpg" class="card-img-top" alt="item_img 1">
+                        <div class="card-body">
+                            <h5 class="card-title">Burger</h5>
+                            <p class="card-text"><b>Price: </b> 199 Rs.</p>
+                            <a href="#" class="btn btn-primary">Order</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <h5>Contact Us</h5>
+                    <p>Email: info@cravebites.com</p>
+                    <p>Phone: (+91) 012-3456-789</p>
+                </div>
+                <div class="col-md-4">
+                    <h5> Main Menu </h5>
+                    <p><a href="">Home</a></p>
+                    <p><a href="">About us</a></p>
+                    <p><a href="">Menu</a></p>
+                    <p><a href="">Contact</a></p>
+                </div>
+                <div class="col-md-4">
+                    <h5>Social Media</h5>
+                    <!-- Additional Social Media Links -->
+                    <p><a href="https://www.facebook.com" target="_blank"><i class="fab fa-facebook"></i> Facebook</a></p>
+                    <p><a href="https://www.twitter.com" target="_blank"><i class="fab fa-twitter"></i> Twitter</a></p>
+                    <p><a href="https://www.instagram.com" target="_blank"><i class="fab fa-instagram"></i> Instagram</a></p>
+                    <p><a href="https://www.linkedin.com" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a></p>
+                    <p><a href="https://www.youtube.com" target="_blank"><i class="fab fa-youtube"></i> YouTube</a></p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+</body>
+
+</html>

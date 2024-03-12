@@ -1,0 +1,6 @@
+Superuser details:
+Username (leave blank to use 'hp'): Yash         
+Email address: 12yashbarde@gmail.com
+Password: Yash@123
+Password (again): Yash@123
+Superuser created successfully.

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-
+    {% load static %}
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -58,7 +58,7 @@
     <!-- Navigation Bar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="#">
-            <img src="Logo_rectangle.png" alt="CraveBites Logo" height="50">
+            <img src="{% static 'images/Logo_rectangle.png' %}" alt="CraveBites Logo" height="50">
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -100,14 +100,14 @@
             <!-- Product Detail Section -->
             <div class="row">
                 <div class="col-md-4">
-                    <img src="01_burger.jpg" alt="Item Detail" class="img-fluid product-image">
+                    <img src="{{ item.image.url }}" alt="{{ item.name }} image" class="img-fluid product-image">
                 </div>
                 <div class="col-md-8">
-                    <h2>Burger</h2>
+                    <h2>{{ item.name }}</h2>
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio.</p>
-                    <p><strong>Price:</strong> 199.00 Rs</p>
-                    <p><strong>Category:</strong> Snack</p>
-                    <p><strong>Description:</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio.</p>
+                    <p><strong>Price:</strong> {{ item.price }} Rs. </p>
+                    <p><strong>Category:</strong> {{ item.category }}</p>
+                    <p><strong>Description:</strong> {{ item.description }}</p>
                     <button class="btn btn-primary">Order</button>
                 </div>
             </div>

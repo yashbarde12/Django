@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Menu - CraveBites</title>
+    <title>Home - CraveBites</title>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <!-- Font Awesome for icons -->
@@ -14,6 +14,7 @@
     <style>
         body {
             padding-top: 56px; /* Adjusted for the fixed navbar height */
+            margin: 0; /* Removed default margin */
         }
 
         .navbar {
@@ -23,17 +24,19 @@
             z-index: 1000;
         }
 
-        .container-fluid {
-            margin-top: 70px; /* Adjusted for the fixed navbar height */
+        .jumbotron {
+            background-color: #f8f9fa; /* Light grey background for the jumbotron */
+            padding: 2rem 1rem;
+            margin-top: 56px; /* Adjusted for the fixed navbar height */
         }
 
-        .card {
-            margin-bottom: 20px;
+        #about {
+            margin-top: 2rem;
         }
 
-        .card-body {
-        box-shadow: 0 50px 100px rgba(0, 0, 0, 0.1); /* Add box shadow to the card body */
-        padding: 20px; /* Adjust padding for a better appearance */
+        .carousel-item img {
+            max-height: 400px;
+            object-fit: cover;
         }
 
         .footer {
@@ -46,6 +49,12 @@
         .footer a {
             color: #ffffff; /* Light text color for footer links */
             margin-right: 10px;
+        }
+
+        /* Set the same size for all images */
+        .img-fluid {
+            max-width: 100%;
+            height: auto;
         }
     </style>
 </head>
@@ -93,79 +102,64 @@
         </div>
     </nav>
 
-    <!-- Content Area -->
-    <div class="container-fluid">
+    <!-- Jumbotron for Welcome Message -->
+    <div class="jumbotron">
         <div class="container">
-            <!-- Filters Section -->
-            <div class="row mb-3">
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label for="categoryFilter">Category:</label>
-                        <select class="form-control" id="categoryFilter" name="category">
-                            <option value="all">All Categories</option>
-                            <option value="snacks">Snacks</option>
-                            <option value="beverages">Beverages</option>
-                            <option value="sweets">Sweets</option>
-                        </select>
-                    </div>
+            <h1 class="display-4">Welcome to CraveBites</h1>
+            <p class="lead">Indulge Your Cravings, Snack Heaven Awaits!</p>
+        </div>
+    </div>
+
+    <!-- Carousel -->
+    <div id="carouselExample" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="{% static 'images/image4.jpg' %}" class="d-block w-100" alt="Slide 1">
+                <div class="carousel-caption d-none d-md-block">
                 </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label for="priceFilter">Price Range:</label>
-                        <select class="form-control" id="priceFilter" name="price">
-                            <option value="all">All Prices</option>
-                            <option value="0-10">0 Rs - 200 Rs</option>
-                            <option value="10-20">200 Rs - 300 Rs</option>
-                            <option value="20-30">300 Rs - 500 Rs</option>
-                            <option value="20-30">Above 500 Rs</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label for="searchFilter">Search:</label>
-                        <form class="form-inline my-2 my-lg-0" method="get" action="{% url 'menu' %}">
-                            <input class="form-control mr-sm-2" type="search" name="q" placeholder="Search items" aria-label="Search" value="{{ query }}">
-                            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
-                                <i class="fas fa-search"></i> <!-- Font Awesome search icon -->
-                            </button>
-                            {% if query %}
-                                <a href="{% url 'menu' %}" class="btn btn-secondary ml-2" title="Clear Search">
-                                    <i class="fas fa-times"></i> <!-- Font Awesome times icon -->
-                                </a>
-                            {% endif %}
-                        </form>
-                    </div>
-                </div>
-                <div class="col-md-12 mt-2">
-                    <button type="submit" class="btn btn-primary">Apply Filters</button>
-                    <a href="{% url 'menu' %}" class="btn btn-secondary ml-2" title="Clear Filters">
-                        Clear Filters
-                    </a>
-                </div>                
             </div>
+            <div class="carousel-item">
+                <img src="{% static 'images/image5.jpg' %}" class="d-block w-100" alt="Slide 2">
+                <div class="carousel-caption d-none d-md-block">
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="{% static 'images/image6.jpg' %}" class="d-block w-100" alt="Slide 3">
+                <div class="carousel-caption d-none d-md-block">
+                </div>
+            </div>
+        </div>
+        <a class="carousel-control-prev" href="#carouselExample" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#carouselExample" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
+    </div>
 
-
-            <!-- Product Cards Section -->
-            <div class="row">
-                {% if items %}
-                    {% for item in items %}
-                        <div class="col-md-4">
-                            <div class="card">
-                                <img src="{{ item.image.url }}" class="card-img-top" alt="{{ item.name }} image">
-                                <div class="card-body">
-                                    <h5 class="card-title">{{ item.name }}</h5>
-                                    <p class="card-text"><b>Price: </b>{{ item.price }} Rs.</p>
-                                    <a href="{% url 'item_detail' item.id %}" class="btn btn-primary">Details</a>
-                                </div>
-                            </div>
-                        </div>
-                    {% endfor %}
-                {% else %}
-                    <div class="col-md-12">
-                        <p>No items found.</p>
-                    </div>
-                {% endif %}
+    <!-- Content Area -->
+    <div class="container mt-4">
+        <!-- About Section -->
+        <section id="about">
+            <h2>About CraveBites</h2>
+            <p>Welcome to CraveBites, where passion meets flavor! At CraveBites, we are dedicated to delivering delightful snack experiences that satisfy your cravings. Our handpicked selection of premium snacks is crafted to perfection, ensuring a taste adventure with every bite.</p>
+            <p>Explore our menu, and let your taste buds embark on a journey of indulgence. Whether you're a sweet tooth or a savory snack enthusiast, CraveBites has something to satiate every craving.</p>
+        </section>
+        <!-- Placeholder Images and Text -->
+        <div class="row">
+            <div class="col-md-4">
+                <img src="{% static 'images/image1.jpg' %}" alt="Image 1" class="img-fluid mb-4">
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero.</p>
+            </div>
+            <div class="col-md-4">
+                <img src="{% static 'images/image2.jpg' %}" alt="Image 2" class="img-fluid mb-4">
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero.</p>
+            </div>
+            <div class="col-md-4">
+                <img src="{% static 'images/image3.jpg' %}" alt="Image 3" class="img-fluid mb-4">
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero.</p>
             </div>
         </div>
     </div>

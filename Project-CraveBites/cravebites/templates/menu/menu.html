@@ -100,63 +100,65 @@
             <div class="row mb-3">
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label for="categoryFilter">Category:</label>
-                        <select class="form-control" id="categoryFilter" name="category">
-                            <option value="all">All Categories</option>
-                            <option value="snacks">Snacks</option>
-                            <option value="beverages">Beverages</option>
-                            <option value="sweets">Sweets</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label for="priceFilter">Price Range:</label>
-                        <select class="form-control" id="priceFilter" name="price">
-                            <option value="all">All Prices</option>
-                            <option value="0-10">0 Rs - 200 Rs</option>
-                            <option value="10-20">200 Rs - 300 Rs</option>
-                            <option value="20-30">300 Rs - 500 Rs</option>
-                            <option value="20-30">Above 500 Rs</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
                         <label for="searchFilter">Search:</label>
                         <form class="form-inline my-2 my-lg-0" method="get" action="{% url 'menu' %}">
-                            <input class="form-control mr-sm-2" type="search" name="q" placeholder="Search items" aria-label="Search" value="{{ query }}">
+                            <input class="form-control mr-sm-2" type="search" name="q" placeholder="Search items"
+                                aria-label="Search" value="{{ query }}">
                             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
                                 <i class="fas fa-search"></i> <!-- Font Awesome search icon -->
                             </button>
                             {% if query %}
-                                <a href="{% url 'menu' %}" class="btn btn-secondary ml-2" title="Clear Search">
-                                    <i class="fas fa-times"></i> <!-- Font Awesome times icon -->
-                                </a>
+                            <a href="{% url 'menu' %}" class="btn btn-secondary ml-2" title="Clear Search">
+                                <i class="fas fa-times"></i> <!-- Font Awesome times icon -->
+                            </a>
                             {% endif %}
                         </form>
                     </div>
                 </div>
-                <div class="col-md-12 mt-2">
-                    <button type="submit" class="btn btn-primary">Apply Filters</button>
-                    <a href="{% url 'menu' %}" class="btn btn-secondary ml-2" title="Clear Filters">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="categoryFilter">Category:</label>
+                        <select class="form-control" id="categoryFilter" onchange="location = this.value;">
+                            <option value="{% url 'menu' %}">Select</option>
+                            <option value="{% url 'filter_by_category' category='snacks' %}">Snacks</option>
+                            <option value="{% url 'filter_by_category' category='beverages' %}">Beverages</option>
+                            <option value="{% url 'filter_by_category' category='sweets' %}">Sweets</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="priceFilter">Price Range:</label>
+                        <select class="form-control" id="priceFilter" onchange="location = this.value;">
+                            <option value="{% url 'menu' %}">Select</option>
+                            <option value="{% url 'filter_by_price_range' min_price=0 max_price=200 %}">0 Rs - 200 Rs</option>
+                            <option value="{% url 'filter_by_price_range' min_price=200 max_price=300 %}">200 Rs - 300 Rs</option>
+                            <option value="{% url 'filter_by_price_range' min_price=300 max_price=500 %}">300 Rs - 500 Rs</option>
+                            <option value="{% url 'filter_by_price_range' min_price=500 max_price=1000 %}">Above 500 Rs</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-2"> <br> 
+                    <a href="{% url 'menu' %}" class="btn btn-secondary" title="Clear Filters">
                         Clear Filters
                     </a>
-                </div>                
+                </div>
             </div>
-
 
             <!-- Product Cards Section -->
             <div class="row">
                 {% if items %}
                     {% for item in items %}
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <div class="card">
                                 <img src="{{ item.image.url }}" class="card-img-top" alt="{{ item.name }} image">
                                 <div class="card-body">
                                     <h5 class="card-title">{{ item.name }}</h5>
                                     <p class="card-text"><b>Price: </b>{{ item.price }} Rs.</p>
-                                    <a href="{% url 'item_detail' item.id %}" class="btn btn-primary">Details</a>
+                                    <div class="btn-group">
+                                        <a href="{% url 'item_detail' item.id %}" class="btn btn-primary">Details</a>
+                                        <button class="btn btn-success ml-2">Add to Cart</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
